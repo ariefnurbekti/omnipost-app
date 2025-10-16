@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniPost Landing Page Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .tab-trigger[data-state="active"] {
+            background-color: white;
+            color: hsl(210, 90%, 55%);
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .tab-trigger {
+            color: hsl(240 4% 46%);
+        }
+        .cta-button-template { animation: pulse-template 2s infinite; }
+        @keyframes pulse-template { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; transform: scale(1.02); } }
+        #toast-template { visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 100; left: 50%; bottom: 30px; }
+        #toast-template.show { visibility: visible; -webkit-animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; }
+        @-webkit-keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @-webkit-keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        @keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold font-headline text-slate-800">Landing Page Generator</h1>
+            <p class="text-slate-500 mt-2">
+                Buat halaman penjualan profesional dalam hitungan detik.
+            </p>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div id="tabs-container" class="mb-8">
+            <div class="flex items-center justify-center rounded-lg bg-slate-200 p-1 text-slate-600 w-fit mx-auto">
+                <button id="tab-used-car" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" data-state="active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M14 16.5 17.5 13 21 16.5"/><path d="M17.5 13v9"/><path d="M13 5.5 16.5 2 20 5.5"/><path d="M16.5 2v10.5"/><path d="m3 16.5 3.5-3.5 3.5 3.5"/><path d="M6.5 13V3.5"/><path d="M2 13h9"/><path d="M21 21h-9"/></svg>
+                    Mobil Bekas
+                </button>
+                <button id="tab-medical-device" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5H20.8"/></svg>
+                    Alat Kesehatan
+                </button>
+            </div>
+        </div>
+
+        <!-- Generator Content -->
+        <div id="generator-content">
+            <!-- Content will be dynamically inserted here by JS -->
+        </div>
+
+    </div>
+
+    <!-- Templates for Generators -->
+    <template id="used-car-generator-template">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-4">
+                <div class="rounded-lg border bg-white text-slate-900 shadow-sm">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <h3 class="text-2xl font-semibold leading-none tracking-tight">Detail Mobil</h3>
+                        <p class="text-sm text-slate-500">Isi informasi mobil di bawah ini.</p>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-make">Merek</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-make" name="make" value="Toyota">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-model">Model</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-model" name="model" value="Avanza">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="uc-year">Tahun</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-year" name="year" type="number" value="2019">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-price">Harga Diskon (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-price" name="price" type="number" value="180000000">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-originalPrice">Harga Asli (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-originalPrice" name="originalPrice" type="number" value="200000000" placeholder="Opsional">
+                            </div>
+                        </div>
+                        <hr class="border-slate-200">
+                        <label class="font-semibold text-sm">Simulasi Kredit (Opsional)</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-dp">DP (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-dp" name="dp" type="number" value="40000000" placeholder="Opsional">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-installment">Cicilan (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-installment" name="installment" type="number" value="3500000" placeholder="Opsional">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="uc-tenor">Tenor</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-tenor" name="tenor" value="36 Bulan" placeholder="Opsional">
+                            </div>
+                        </div>
+                        <hr class="border-slate-200">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="uc-mileage">Jarak Tempuh (KM)</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-mileage" name="mileage" type="number" value="45000">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="uc-features">Fitur Utama</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-features" name="features" placeholder="e.g., Automatic, Sunroof" value="Automatic, AC Dingin, Pajak Panjang, Servis Rutin">
+                            <p class="text-xs text-slate-500">Pisahkan fitur dengan koma.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="uc-description">Deskripsi</label>
+                            <textarea class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-description" name="description" rows="5">Dijual mobil keluarga kondisi istimewa. Sangat terawat, servis selalu di bengkel resmi. Interior bersih dan wangi. Cocok untuk kebutuhan sehari-hari.</textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none">Gambar Mobil (Maks. 4)</label>
+                            <input id="uc-image-upload" type="file" multiple accept="image/*" class="hidden">
+                            <label for="uc-image-upload" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full border border-slate-200 bg-white hover:bg-slate-100 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                Unggah Gambar
+                            </label>
+                            <div id="uc-image-preview" class="grid grid-cols-4 gap-2 mt-2"></div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="uc-contactPhone">Nomor WhatsApp Kontak</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="uc-contactPhone" name="contactPhone" value="6281234567890" placeholder="e.g. 6281234567890">
+                        </div>
+                        <button id="uc-generate-btn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full bg-slate-900 text-slate-50 hover:bg-slate-900/90">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M15 4V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m11.5 12.5 3 3-3 3"/><path d="m8.5 12.5-3 3 3 3"/></svg>
+                            Buat Halaman
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview Section -->
+            <div class="lg:col-span-8">
+                <div class="rounded-lg border bg-white text-slate-900 shadow-sm h-full">
+                    <div class="p-6 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-2xl font-semibold leading-none tracking-tight">Pratinjau</h3>
+                            <p class="text-sm text-slate-500">Pratinjau langsung dari halaman arahan Anda.</p>
+                        </div>
+                        <button id="uc-download-btn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 border border-slate-200 bg-white hover:bg-slate-100 hidden">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            Unduh HTML
+                        </button>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div id="uc-preview-container" class="w-full h-[calc(100vh-20rem)] border rounded-lg bg-slate-100/50 flex flex-col items-center justify-center text-center text-slate-500">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 mb-4"><path d="M14 16.5 17.5 13 21 16.5"/><path d="M17.5 13v9"/><path d="M13 5.5 16.5 2 20 5.5"/><path d="M16.5 2v10.5"/><path d="m3 16.5 3.5-3.5 3.5 3.5"/><path d="M6.5 13V3.5"/><path d="M2 13h9"/><path d="M21 21h-9"/></svg>
+                            <p class="font-semibold">Pratinjau Anda akan muncul di sini</p>
+                            <p class="text-sm">Isi formulir dan klik "Buat Halaman".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="medical-device-generator-template">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-4">
+                <div class="rounded-lg border bg-white text-slate-900 shadow-sm">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <h3 class="text-2xl font-semibold leading-none tracking-tight">Detail Produk</h3>
+                        <p class="text-sm text-slate-500">Isi informasi alat kesehatan di bawah ini.</p>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                         <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-productName">Nama Produk</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-productName" name="productName" value="Tensi Darah Digital">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-certification">Sertifikasi</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-certification" name="certification" value="KEMENKES RI AKL 20501120XXX" placeholder="e.g. KEMENKES RI AKL...">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="md-price">Harga Diskon (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-price" name="price" type="number" value="299000">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none" for="md-originalPrice">Harga Asli (IDR)</label>
+                                <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-originalPrice" name="originalPrice" type="number" value="350000" placeholder="Opsional">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-stock">Jumlah Stok</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-stock" name="stock" type="number" value="25">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-benefits">Manfaat Utama</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-benefits" name="benefits" placeholder="e.g., Akurat, Mudah digunakan" value="Akurasi tinggi, Mudah digunakan, Memori untuk 2 pengguna, Deteksi detak jantung tidak teratur">
+                            <p class="text-xs text-slate-500">Pisahkan manfaat dengan koma.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-specifications">Spesifikasi Produk</label>
+                            <textarea class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-specifications" name="specifications" rows="5">Metode Pengukuran: Osilometrik&#10;Rentang Pengukuran: 0-299 mmHg (Tekanan), 40-180 denyut/menit (Nadi)&#10;Sumber Daya: 4x Baterai AA atau Adaptor AC</textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none">Gambar Produk (Maks. 4)</label>
+                            <input id="md-image-upload" type="file" multiple accept="image/*" class="hidden">
+                            <label for="md-image-upload" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full border border-slate-200 bg-white hover:bg-slate-100 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                Unggah Gambar
+                            </label>
+                            <div id="md-image-preview" class="grid grid-cols-4 gap-2 mt-2"></div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none" for="md-contactPhone">Nomor WhatsApp Kontak</label>
+                            <input class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm" id="md-contactPhone" name="contactPhone" value="6281234567890" placeholder="e.g. 6281234567890">
+                        </div>
+                        <button id="md-generate-btn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full bg-slate-900 text-slate-50 hover:bg-slate-900/90">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M15 4V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m11.5 12.5 3 3-3 3"/><path d="m8.5 12.5-3 3 3 3"/></svg>
+                            Buat Halaman
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview Section -->
+            <div class="lg:col-span-8">
+                <div class="rounded-lg border bg-white text-slate-900 shadow-sm h-full">
+                     <div class="p-6 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-2xl font-semibold leading-none tracking-tight">Pratinjau</h3>
+                            <p class="text-sm text-slate-500">Pratinjau langsung dari halaman arahan Anda.</p>
+                        </div>
+                        <button id="md-download-btn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 border border-slate-200 bg-white hover:bg-slate-100 hidden">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            Unduh HTML
+                        </button>
+                    </div>
+                    <div class="p-6 pt-0">
+                         <div id="md-preview-container" class="w-full h-[calc(100vh-20rem)] border rounded-lg bg-slate-100/50 flex flex-col items-center justify-center text-center text-slate-500">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 mb-4"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5H20.8"/></svg>
+                            <p class="font-semibold">Pratinjau Anda akan muncul di sini</p>
+                            <p class="text-sm">Isi formulir dan klik "Buat Halaman".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = {
+                'used-car': document.getElementById('tab-used-car'),
+                'medical-device': document.getElementById('tab-medical-device'),
+            };
+            const contentContainer = document.getElementById('generator-content');
+            const templates = {
+                'used-car': document.getElementById('used-car-generator-template'),
+                'medical-device': document.getElementById('medical-device-generator-template'),
+            };
+            let activeTab = 'used-car';
+
+            function switchTab(tabId) {
+                activeTab = tabId;
+                Object.values(tabs).forEach(tab => tab.setAttribute('data-state', ''));
+                tabs[tabId].setAttribute('data-state', 'active');
+                
+                contentContainer.innerHTML = '';
+                const templateNode = templates[tabId].content.cloneNode(true);
+                contentContainer.appendChild(templateNode);
+                
+                if (tabId === 'used-car') {
+                    initUsedCarGenerator();
+                } else if (tabId === 'medical-device') {
+                    initMedicalDeviceGenerator();
+                }
+            }
+
+            Object.keys(tabs).forEach(tabId => {
+                tabs[tabId].addEventListener('click', () => switchTab(tabId));
+            });
+
+            // Initial load
+            switchTab('used-car');
+
+            // --- SHARED FUNCTIONS ---
+            function setupImageUploader(prefix, maxFiles = 4) {
+                const imageUploadInput = document.getElementById(`${prefix}-image-upload`);
+                const imagePreviewContainer = document.getElementById(`${prefix}-image-preview`);
+                let imageFiles = [];
+
+                imageUploadInput.addEventListener('change', (e) => {
+                    const files = Array.from(e.target.files);
+                    if (imageFiles.length + files.length > maxFiles) {
+                        alert(`Maksimal ${maxFiles} gambar.`);
+                        return;
+                    }
+                    imageFiles.push(...files);
+                    renderPreviews();
+                });
+
+                function renderPreviews() {
+                    imagePreviewContainer.innerHTML = '';
+                    imageFiles.forEach((file, index) => {
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'relative group';
+                        
+                        const img = document.createElement('img');
+                        img.src = URL.createObjectURL(file);
+                        img.className = 'w-full h-20 object-cover rounded-md';
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'absolute top-1 right-1 h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity bg-red-600 text-white rounded-full flex items-center justify-center';
+                        removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+                        removeBtn.onclick = () => {
+                            imageFiles.splice(index, 1);
+                            renderPreviews();
+                        };
+                        
+                        previewWrapper.appendChild(img);
+                        previewWrapper.appendChild(removeBtn);
+                        imagePreviewContainer.appendChild(previewWrapper);
+                    });
+                }
+                
+                return () => imageFiles;
+            }
+
+            function getFormValues(formId) {
+                const form = document.querySelector(formId);
+                const inputs = form.querySelectorAll('input, textarea');
+                const values = {};
+                inputs.forEach(input => {
+                    values[input.name] = input.value;
+                });
+                return values;
+            }
+
+            function fileToDataUri(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            }
+            
+            // --- USED CAR GENERATOR ---
+            function initUsedCarGenerator() {
+                const getUcImageFiles = setupImageUploader('uc');
+                const generateBtn = document.getElementById('uc-generate-btn');
+                const downloadBtn = document.getElementById('uc-download-btn');
+                const previewContainer = document.getElementById('uc-preview-container');
+                let generatedHtml = null;
+
+                generateBtn.addEventListener('click', async () => {
+                    const imageFiles = getUcImageFiles();
+                    if (imageFiles.length === 0) {
+                        alert('Harap unggah setidaknya satu gambar mobil.');
+                        return;
+                    }
+                    
+                    generateBtn.disabled = true;
+                    generateBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memproses...';
+                    
+                    const imageUrls = await Promise.all(imageFiles.map(file => fileToDataUri(file)));
+                    const formValues = getFormValues('#used-car-generator-template');
+                    generatedHtml = createHighConvertingTemplate({...formValues, imageUrls});
+
+                    previewContainer.innerHTML = `<iframe srcDoc=\'\'\'${generatedHtml.replace(/'/g, "&apos;")}\'\'\' class="w-full h-full border-0 rounded-md"></iframe>`;
+
+                    downloadBtn.classList.remove('hidden');
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M15 4V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m11.5 12.5 3 3-3 3"/><path d="m8.5 12.5-3 3 3 3"/></svg>Buat Halaman';
+                });
+
+                downloadBtn.addEventListener('click', () => {
+                    if (!generatedHtml) return;
+                    const formValues = getFormValues('#used-car-generator-template');
+                    const blob = new Blob([generatedHtml], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `landing-page-${formValues.make.toLowerCase().replace(/\\s/g, '-')}-${formValues.model.toLowerCase().replace(/\\s/g, '-')}.html`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            }
+
+            // --- MEDICAL DEVICE GENERATOR ---
+            function initMedicalDeviceGenerator() {
+                const getMdImageFiles = setupImageUploader('md');
+                const generateBtn = document.getElementById('md-generate-btn');
+                const downloadBtn = document.getElementById('md-download-btn');
+                const previewContainer = document.getElementById('md-preview-container');
+                let generatedHtml = null;
+
+                generateBtn.addEventListener('click', async () => {
+                    const imageFiles = getMdImageFiles();
+                    if (imageFiles.length === 0) {
+                        alert('Harap unggah setidaknya satu gambar produk.');
+                        return;
+                    }
+                    
+                    generateBtn.disabled = true;
+                    generateBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memproses...';
+                    
+                    const imageUrls = await Promise.all(imageFiles.map(file => fileToDataUri(file)));
+                    const formValues = getFormValues('#medical-device-generator-template');
+                    generatedHtml = createMedicalDeviceTemplate({...formValues, imageUrls});
+
+                    previewContainer.innerHTML = `<iframe srcDoc=\'\'\'${generatedHtml.replace(/'/g, "&apos;")}\'\'\' class="w-full h-full border-0 rounded-md"></iframe>`;
+
+                    downloadBtn.classList.remove('hidden');
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M15 4V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m11.5 12.5 3 3-3 3"/><path d="m8.5 12.5-3 3 3 3"/></svg>Buat Halaman';
+                });
+
+                downloadBtn.addEventListener('click', () => {
+                    if (!generatedHtml) return;
+                    const formValues = getFormValues('#medical-device-generator-template');
+                    const blob = new Blob([generatedHtml], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `landing-page-${formValues.productName.toLowerCase().replace(/\\s/g, '-')}.html`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+            }
+
+            // --- HTML TEMPLATE FUNCTIONS ---
+            function createHighConvertingTemplate(data) {
+                const { make, model, year, price, originalPrice, dp, installment, tenor, mileage, features, description, contactPhone, imageUrls } = data;
+                const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(price));
+                const formattedMileage = new Intl.NumberFormat('id-ID').format(Number(mileage));
+                const mainImage = imageUrls[0] || 'https://placehold.co/600x400/e2e8f0/e2e8f0';
+                const headline = `Milik Anda! ${make} ${model} ${year} Kondisi Istimewa - Harga Nego!`;
+                const pageTitle = `Dijual: ${make} ${model} ${year} Bekas Terawat`;
+
+                let priceDisplay = `<p class="text-4xl font-bold text-blue-600">${formattedPrice}</p><p class="text-sm text-gray-500 -mt-1">Harga Tunai</p>`;
+                if (originalPrice && Number(originalPrice) > Number(price)) {
+                    const formattedOriginalPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(originalPrice));
+                    const discount = Math.round(((Number(originalPrice) - Number(price)) / Number(originalPrice)) * 100);
+                    priceDisplay = `
+                        <div class="flex items-baseline gap-3">
+                            <p class="text-4xl font-bold text-blue-600">${formattedPrice}</p>
+                            <div class="flex flex-col">
+                                <p class="text-lg line-through text-gray-500">${formattedOriginalPrice}</p>
+                                <span class="bg-red-100 text-red-700 text-sm font-bold px-2 py-0.5 rounded-md">Hemat ${discount}%</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 -mt-1">Harga Tunai Promo</p>
+                    `;
+                }
+
+                let creditSimulationDisplay = '';
+                if (dp || installment || tenor) {
+                    const dpDisplay = dp ? `
+                    <div class="bg-blue-100 border-2 border-blue-300 rounded-lg p-3 col-span-3 ring-4 ring-blue-100">
+                        <p class="text-sm text-blue-800 font-semibold">DP Ringan Mulai Dari</p>
+                        <p class="text-3xl font-bold text-blue-700">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(dp))}</p>
+                    </div>` : '';
+                    const installmentDisplay = installment ? `
+                    <div class="col-span-2">
+                        <p class="text-xs text-green-700">Cicilan</p>
+                        <p class="font-bold text-green-900">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(installment))}</p>
+                    </div>` : '';
+                    const tenorDisplay = tenor ? `
+                    <div>
+                        <p class="text-xs text-green-700">Tenor</p>
+                        <p class="font-bold text-green-900">${tenor}</p>
+                    </div>` : '';
+
+                    creditSimulationDisplay = `
+                        <div class="mt-6 border-t pt-6">
+                            <h4 class="text-lg font-semibold text-center mb-4">Simulasi Kredit Fleksibel</h4>
+                            <div class="grid grid-cols-3 gap-2 text-center bg-green-50 p-3 rounded-lg">
+                                ${dpDisplay}
+                                ${installmentDisplay}
+                                ${tenorDisplay}
+                            </div>
+                            <p class="text-xs text-center text-gray-500 mt-2">*) Simulasi dapat berbeda, hubungi kami untuk penawaran final.</p>
+                        </div>
+                    `;
+                }
+
+                const featuresList = features.split(',').map(f => `<li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><path d="M20 6 9 17l-5-5"/></svg> ${f.trim()}</li>`).join('');
+                const thumbnailGallery = imageUrls.map((url, index) => `<img src="${url}" alt="Thumbnail ${make} ${model} ${index + 1}" class="w-full h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all" onclick="document.getElementById('main-image').src='${url}'">`).join('');
+                const whatsappLink = `https://wa.me/${contactPhone.replace(/^0/, '62')}?text=${encodeURIComponent(`Halo, saya tertarik dengan mobil ${make} ${model} ${year} yang Anda iklankan.`)}`;
+
+                return `
+                    <!DOCTYPE html>
+                    <html lang="id">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>${pageTitle}</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                        <style> body { font-family: 'Inter', sans-serif; } .cta-button-template { animation: pulse-template 2s infinite; } @keyframes pulse-template { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; transform: scale(1.02); } } #toast-template { visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 100; left: 50%; bottom: 30px; } #toast-template.show { visibility: visible; -webkit-animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; } @-webkit-keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} } @keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} } @-webkit-keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} } @keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} } <\/style>
+                    </head>
+                    <body class="bg-gray-100 text-gray-800">
+                        <div id="toast-template">Link berhasil disalin!</div>
+                        <header class="bg-white shadow-md sticky top-0 z-50">
+                            <div class="container mx-auto p-4 flex justify-between items-center">
+                                <h1 class="text-2xl font-bold text-gray-900">${make} ${model}</h1>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="sharePage()" class="bg-gray-200 text-gray-800 p-2 rounded-full font-semibold hover:bg-gray-300 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg></button>
+                                    <a href="${whatsappLink}" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors">Hubungi Penjual</a>
+                                </div>
+                            </div>
+                        </header>
+                        <main class="container mx-auto p-4 md:p-8">
+                            <div class="bg-white rounded-lg shadow-2xl overflow-hidden">
+                                <div class="p-6"><h2 class="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-900">${headline}</h2><p class="text-center text-gray-500 mb-6">Jangan sampai kehabisan, unit terbatas dan sangat diminati!</p></div>
+                                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 p-6">
+                                    <div class="lg:col-span-3"><img id="main-image" src="${mainImage}" alt="Gambar utama ${make} ${model}" class="w-full h-auto object-cover rounded-xl shadow-lg mb-4"><div class="grid grid-cols-4 gap-4">${thumbnailGallery}</div></div>
+                                    <div class="lg:col-span-2"><div class="bg-gray-50 p-6 rounded-lg border"><div class="mb-4 text-center">${priceDisplay}</div><div class="grid grid-cols-2 gap-4 text-center mb-6"><div><p class="text-sm text-gray-500">Tahun</p><p class="font-bold text-lg">${year}</p></div><div><p class="text-sm text-gray-500">Jarak Tempuh</p><p class="font-bold text-lg">${formattedMileage} KM</p></div></div><a href="${whatsappLink}" target="_blank" class="cta-button-template w-full bg-green-500 text-white text-lg font-bold py-4 px-6 rounded-xl flex items-center justify-center hover:bg-green-600 transition-transform transform hover:scale-105"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>Hubungi via WhatsApp</a><p class="text-xs text-gray-500 text-center mt-2">Klik untuk bertanya & nego harga! Unit Terbatas!</p>${creditSimulationDisplay}</div></div>
+                                </div>
+                                <div class="p-6"><div class="grid md:grid-cols-2 gap-8"><div><h3 class="text-2xl font-bold mb-4 border-b pb-2">Fitur Utama Mobil Ini</h3><ul class="space-y-3 text-gray-700">${featuresList}</ul></div><div><h3 class="text-2xl font-bold mb-4 border-b pb-2">Deskripsi dari Penjual</h3><p class="text-gray-700 whitespace-pre-line leading-relaxed">${description}</p></div></div></div>
+                            </div>
+                        </main>
+                        <footer class="mt-12 bg-gray-800 text-white"><div class="container mx-auto p-6 text-center"><p>&copy; ${new Date().getFullYear()} - Dibuat oleh OmniPost Landing Page Generator</p></div></footer>
+                        <script> function sharePage() { const shareData = { title: document.title, text: 'Lihat penawaran menarik untuk ${make} ${model} ${year} ini!', url: window.location.href }; if (navigator.share && navigator.canShare(shareData)) { navigator.share(shareData); } else { navigator.clipboard.writeText(window.location.href); const toast = document.getElementById("toast-template"); toast.className = "show"; setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000); } } <\/script>
+                    </body>
+                    </html>
+                `;
+            }
+
+            function createMedicalDeviceTemplate(data) {
+                 const { productName, certification, price, originalPrice, stock, benefits, specifications, contactPhone, imageUrls } = data;
+                const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(price));
+                const mainImage = imageUrls[0] || 'https://placehold.co/600x400/e2e8f0/e2e8f0';
+                const pageTitle = `${productName} - Alat Kesehatan Terpercaya`;
+                const headline = `Tingkatkan Kualitas Hidup dengan ${productName}`;
+
+                let priceDisplay = `<p class="text-4xl font-bold text-blue-600 mb-6">${formattedPrice}</p>`;
+                if (originalPrice && Number(originalPrice) > Number(price)) {
+                    const formattedOriginalPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(Number(originalPrice));
+                    const discount = Math.round(((Number(originalPrice) - Number(price)) / Number(originalPrice)) * 100);
+                    priceDisplay = `
+                        <p class="text-sm text-gray-500">Harga Promo</p>
+                        <div class="flex items-baseline gap-3 mb-1">
+                            <p class="text-4xl font-bold text-blue-600">${formattedPrice}</p>
+                            <span class="bg-red-100 text-red-700 text-sm font-bold px-2 py-0.5 rounded-md">Hemat ${discount}%</span>
+                        </div>
+                        <p class="text-lg line-through text-gray-500 mb-6">${formattedOriginalPrice}</p>
+                    `;
+                } else {
+                    priceDisplay = `
+                        <p class="text-sm text-gray-500">Harga</p>
+                        ${priceDisplay}
+                    `;
+                }
+
+                const stockInfo = Number(stock) > 0 ? `<p class="text-sm text-yellow-600 font-semibold text-center mt-2">Stok Terbatas: Hanya tersisa ${stock} unit!</p>` : '<p class="text-xs text-gray-500 text-center mt-2">Stok terbatas. Hubungi kami sekarang!</p>';
+                const benefitsList = benefits.split(',').map(f => `<li class="flex items-start gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 mt-1 flex-shrink-0"><path d="M20 6 9 17l-5-5"/></svg><span>${f.trim()}</span></li>`).join('');
+                const thumbnailGallery = imageUrls.map((url, index) => `<img src="${url}" alt="Thumbnail ${productName} ${index + 1}" class="w-full h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all" onclick="document.getElementById('main-image').src='${url}'">`).join('');
+                const whatsappLink = `https://wa.me/${contactPhone.replace(/^0/, '62')}?text=${encodeURIComponent(`Halo, saya tertarik dengan produk ${productName}. Bisa berikan info lebih lanjut?`)}`;
+
+                return `
+                    <!DOCTYPE html>
+                    <html lang="id">
+                    <head>
+                        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${pageTitle}</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                        <style> body { font-family: 'Inter', sans-serif; } .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; } .cta-button-template { animation: pulse-template 2s infinite; } @keyframes pulse-template { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; transform: scale(1.02); } } #toast-template { visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #333; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 100; left: 50%; bottom: 30px; } #toast-template.show { visibility: visible; -webkit-animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; animation: fadein-template 0.5s, fadeout-template 0.5s 2.5s; } @-webkit-keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} } @keyframes fadein-template { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} } @-webkit-keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} } @keyframes fadeout-template { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} } <\/style>
+                    </head>
+                    <body class="bg-gray-50 text-gray-800">
+                        <div id="toast-template">Link berhasil disalin!</div>
+                        <header class="bg-white shadow-sm sticky top-0 z-50">
+                            <div class="container mx-auto p-4 flex justify-between items-center">
+                                <h1 class="text-xl font-bold text-blue-600 font-jakarta">${productName}</h1>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="sharePage()" class="bg-gray-200 text-gray-800 p-2 rounded-full font-semibold hover:bg-gray-300 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg></button>
+                                    <a href="${whatsappLink}" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-green-600 transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg><span>Konsultasi & Pesan</span></a>
+                                </div>
+                            </div>
+                        </header>
+                        <main class="container mx-auto p-4 md:p-8">
+                            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                <div class="p-6 md:p-10"><h2 class="text-3xl md:text-4xl font-extrabold text-center mb-2 text-gray-900 font-jakarta">${headline}</h2><p class="text-center text-gray-500 mb-8">Solusi terpercaya untuk kesehatan Anda dan keluarga.</p></div>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 p-6 md:p-10">
+                                    <div>
+                                        <div class="relative"><div class="absolute top-3 left-3 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span>${certification}</span></div><img id="main-image" src="${mainImage}" alt="Gambar utama ${productName}" class="w-full h-auto object-cover rounded-xl shadow-lg mb-4"></div>
+                                        <div class="grid grid-cols-4 gap-4">${thumbnailGallery}</div>
+                                    </div>
+                                    <div class="flex flex-col justify-center"><div class="bg-gray-50 p-6 rounded-lg border">${priceDisplay}<div><h3 class="text-xl font-bold mb-3 font-jakarta">Manfaat Utama Produk</h3><ul class="space-y-3 text-gray-700 mb-6">${benefitsList}</ul></div><a href="${whatsappLink}" target="_blank" class="cta-button-template w-full bg-blue-500 text-white text-lg font-bold py-4 px-6 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-transform transform hover:scale-105">Pesan Sekarang</a>${stockInfo}</div></div>
+                                </div>
+                                <div class="p-6 md:p-10 bg-gray-50/70"><h3 class="text-2xl font-bold mb-4 border-b pb-2 text-center font-jakarta">Spesifikasi Produk</h3><p class="text-gray-700 whitespace-pre-line leading-relaxed text-center max-w-2xl mx-auto">${specifications}</p></div>
+                            </div>
+                        </main>
+                        <footer class="mt-12 bg-gray-800 text-white"><div class="container mx-auto p-6 text-center"><p>&copy; ${new Date().getFullYear()} - Dibuat oleh OmniPost Landing Page Generator</p></div></footer>
+                        <script> function sharePage() { const shareData = { title: document.title, text: 'Lihat alat kesehatan terpercaya: ${productName}', url: window.location.href }; if (navigator.share && navigator.canShare(shareData)) { navigator.share(shareData); } else { navigator.clipboard.writeText(window.location.href); const toast = document.getElementById("toast-template"); toast.className = "show"; setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000); } } <\/script>
+                    </body>
+                    </html>
+                `;
+            }
+
+        });
+    <\/script>
+</body>
+</html>
